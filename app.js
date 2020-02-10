@@ -54,6 +54,9 @@ app.locals.title = "ecobite";
 const index = require("./routes/index");
 app.use("/", index);
 
+const restaurants = require("./routes/restaurants");
+app.use("/restaurants", restaurants);
+
 const authRoutes = require("./routes/auth");
 app.use("/", authRoutes);
 
