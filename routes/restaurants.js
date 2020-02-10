@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
+const endpoint = `https://api.foursquare.com/v2/venues/search?ll=52.5200,13.40508&radius=1000&limit=50&query=food&intent=browse&client_id=PSP5QOSRPK51TQA0HB215CWY2HVVGYHEVSS3LLICXE0ZXCZ4&client_secret=JNHCGSX0SFMEUNH1U0QTTWXPL5REZM2ACJABH2LQNQ3UQ3Z3&v=20200210`;
 
 router.get("/restaurants", (req, res, next) => {
   console.log("REST");
@@ -10,9 +11,8 @@ router.get("/restaurants", (req, res, next) => {
 // DATA-GRABBING FUNCTIONS
 function getRestaurantList() {
   return axios
-    .get(`http://api.coindesk.com/v1/bpi/historical/close.json`)
+    .get(endpoint)
     .then(response => {
-      console.log(response);
       return response;
     })
     .catch(err => {
@@ -20,15 +20,15 @@ function getRestaurantList() {
     });
 }
 
-//https://api.foursquare.com/v2/venues/explore?client_id=f5a60750e73a48e48972e328f134e63a&client_secret=71c5f7ca1b1b4c138aac376fef5462a7&v=20180323&limit=20&ll=52.5200,13.40508&query=food
-
 router.get("/markus", (req, res, next) => {
-  console.log("Hellesfsefesfesefso");
-  getRestaurantList();
-  //.then(restaurantsList => {
-  //res.send(restaurantsList);
-  //res.render("test");
-  //});
+  getRestaurantList()
+    .then(restaurantsList => {
+      res.send(restaurantsList.data.response.venues); // array of objects
+      res.render("test");
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 module.exports = router;
