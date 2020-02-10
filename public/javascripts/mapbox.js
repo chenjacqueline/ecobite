@@ -4,7 +4,7 @@ mapboxgl.accessToken =
 var map = new mapboxgl.Map({
   container: "map", // The container ID
   style: "mapbox://styles/mapbox/light-v10", // The map style to use
-  center: [-105.0178157, 39.737925], // Starting position [lng, lat]
+  center: [13.401356, 52.519885], // Starting position [lng, lat]
   zoom: 12 // Starting zoom level
 });
 
@@ -13,10 +13,11 @@ map.on("load", function() {
     // Initialize the geocoder
     accessToken: mapboxgl.accessToken, // Set the access token
     mapboxgl: mapboxgl, // Set the mapbox-gl instance
-    zoom: 13, // Set the zoom level for geocoding results
-    placeholder: "Enter an address or place name", // This placeholder text will display in the search bar
-    bbox: [-105.116, 39.679, -104.898, 39.837] // Set a bounding box (in this case, roughly just Denver)
+    zoom: 20, // Set the zoom level for geocoding results
+    placeholder: "Burgermeister, Bonanza Coffee, ...", // This placeholder text will display in the search bar
+    bbox: [52.669, 13.088, 52.341, 13.76] // Set a bounding box
   });
+
   // Add the geocoder to the map
   map.addControl(geocoder, "top-left"); // Add the search box to the top left
 

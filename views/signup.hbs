@@ -1,9 +1,13 @@
 <form action="/signup" method="POST">
-  <label for="email">Email address:</label>
-  <input type="text" name="email" id="email-field">
+  <label for="email">Email address:</label><br />
+  <input type="text" name="email" id="email-field"><br />
 
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="password-field">
+  <label for="password">Password:</label><br />
+  <input type="password" name="password" id="password-field"><br />
 
   <button>Sign up</button>
 </form>
+
+{{#if errorMessage}}
+<caption>{{errorMessage}}</caption>
+{{/if}}
