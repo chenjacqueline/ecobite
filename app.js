@@ -3,6 +3,8 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const favicon = require("serve-favicon");
 const hbs = require("hbs");
 const mongoose = require("mongoose");
@@ -41,6 +43,19 @@ app.use(
     src: path.join(__dirname, "public"),
     dest: path.join(__dirname, "public"),
     sourceMap: true
+  })
+);
+
+app.use(
+  session({
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000
+    },
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    // The following is from connect-mongo
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 
