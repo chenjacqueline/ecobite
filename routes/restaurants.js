@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const endpoint = `https://api.foursquare.com/v2/venues/search?ll=52.5200,13.40508&radius=1000&limit=50&query=food&intent=browse&client_id=PSP5QOSRPK51TQA0HB215CWY2HVVGYHEVSS3LLICXE0ZXCZ4&client_secret=JNHCGSX0SFMEUNH1U0QTTWXPL5REZM2ACJABH2LQNQ3UQ3Z3&v=20200210`;
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+const endpoint = `https://api.foursquare.com/v2/venues/search?ll=52.5200,13.40508&radius=2000&limit=5&query=food&intent=browse&client_id=${clientId}&client_secret=${clientSecret}&v=20200210`;
 
 router.get("/restaurants", (req, res, next) => {
   console.log("REST");
@@ -20,7 +22,7 @@ function getRestaurantList() {
     });
 }
 
-router.get("/markus", (req, res, next) => {
+router.get("/test", (req, res, next) => {
   getRestaurantList()
     .then(restaurantsList => {
       res.send(restaurantsList.data.response.venues); // array of objects
