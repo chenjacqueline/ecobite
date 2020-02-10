@@ -8,6 +8,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
+const User = require("./models/User");
 
 mongoose
   .connect("mongodb://localhost/ecobite", { useNewUrlParser: true })
@@ -43,6 +44,30 @@ app.use(
   })
 );
 
+// PASSPORT
+const passport = require("passport"),
+  LocalStrategy = require("passport-local").Strategy;
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const flash = require("connect-flash");
+app.use(flash());
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then(userDocument => {
+      done(null, userDocument);
+    })
+    .catch(err => {
+      done(err);
+    });
+});
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -54,8 +79,8 @@ app.locals.title = "ecobite";
 const index = require("./routes/index");
 app.use("/", index);
 
-const restaurants = require("./routes/restaurants");
-app.use("/restaurants", restaurants);
+const restaurantsRoutes = require("./routes/restaurants");
+app.use("/", restaurantsRoutes);
 
 const authRoutes = require("./routes/auth");
 app.use("/", authRoutes);
