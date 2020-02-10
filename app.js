@@ -68,6 +68,30 @@ passport.deserializeUser((id, done) => {
     });
 });
 
+// PASSPORT: LOCAL STRATEGY FOR EMAIL SIGNUP / LOGIN
+passport.use(
+  new LocalStrategy((email, password, done) => {
+    User.findOne({ email: email })
+      .then(userDocument => {
+        console.log(userDocument);
+        if (!userDocument) {
+          done(null, false, { message: "Incorrect credentials" });
+          return;
+        }
+        bcrypt.compare(password, userDocument.password).then(match => {
+          if (!match) {
+            done(null, false, { message: "Incorrect credentials" });
+            return;
+          }
+          done(null, userDocument);
+        });
+      })
+      .catch(err => {
+        done(err);
+      });
+  })
+);
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));

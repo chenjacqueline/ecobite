@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 const User = require("../models/User");
 const Restaurant = require("../models/Restaurant");
 const Score = require("../models/Score");
@@ -42,8 +43,6 @@ router.post("/signup", (req, res, next) => {
           return User.create({ email: email, password: hash });
         })
         .then(createdUser => {
-          console.log(createdUser);
-
           // req.user = createdUser;
           req.login(createdUser, err => {
             if (err) {
@@ -53,12 +52,25 @@ router.post("/signup", (req, res, next) => {
             res.redirect("/");
           });
         });
-      // User.create({ email: email, password: password });
     })
     .catch(err => {
       next(err);
     });
 });
+
+// LOG IN WITH EMAIL ADDRESS
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    failureFlash: true
+  })
+);
 
 // let info = zxcvbn(password);
 // if (info.score < 3) {
