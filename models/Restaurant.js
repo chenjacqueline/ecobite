@@ -2,26 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const restaurantSchema = new Schema({
-  name: {
+  id: {
     type: String,
     required: true
   },
-  address: {
-    type: String,
-    required: true
-  },
-  coordinates: [Number],
-  photo: {
-    type: String
-    //default photo needed
-  },
-  categories: {
-    type: Array
-  },
-  score: {
-    type: Schema.Types.ObjectId,
-    ref: "Score"
-  }
+  scores: [{
+    eatIn: Number,
+    takeAway: Number,
+    reusableCup: Number,
+    veg: Number,
+    dairy: Number
+  }]
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);

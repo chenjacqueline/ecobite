@@ -15,11 +15,11 @@ const scoreSchema = new Schema({
     default: Date.now()
   },
   scores: {
-    eatIn: Boolean,
+    eatIn: Number,
     takeAway: Number,
-    reusableCup: Boolean,
+    reusableCup: Number,
     veg: Number,
-    dairy: Boolean
+    dairy: Number
   }
 });
 
