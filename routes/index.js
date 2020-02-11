@@ -6,4 +6,8 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
+router.get("/restaurantcard", (req, res, next) => {
+  res.render("partials/restaurantCard");
+});
+
 module.exports = router;

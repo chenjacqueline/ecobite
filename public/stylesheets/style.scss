@@ -1,10 +1,15 @@
+:root {
+  --light-gray: #b5bcba;
+  --green: #03a87c;
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
@@ -72,4 +77,48 @@ nav {
   top: 80px;
   bottom: 0;
   width: 100%;
+}
+
+/* RESTAURANT CARD PARTIAL */
+.restaurant-card-background {
+  height: 100vh;
+  width: 50vw;
+  background-color: #f3f3f3;
+}
+
+.restaurant-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  background-color: #fff;
+  padding: 44px 32px;
+  p {
+    padding-bottom: 12px;
+  }
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .caption {
+    font-size: 14px;
+    color: var(--light-gray);
+  }
+  .score {
+    background-color: var(--green);
+    color: #fff;
+    padding: 8px;
+    margin-bottom: 16px;
+    width: 24px;
+    height: 20px;
+    border-radius: 6px;
+    p {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  a {
+    font-size: 14px;
+  }
 }
