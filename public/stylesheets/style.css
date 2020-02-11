@@ -1,6 +1,7 @@
 :root {
-  --light-gray: #b5bcba;
-  --green: #03a87c; }
+  --green: #03a87c;
+  --light-gray: #c6c8c7;
+  --medium-gray: #b5bcba; }
 
 * {
   margin: 0;
@@ -91,7 +92,8 @@ nav {
   align-items: flex-start;
   width: 90%;
   background-color: #fff;
-  padding: 44px 32px; }
+  padding: 44px 32px;
+  border-bottom: 1px solid var(--light-gray); }
   .restaurant-card p {
     padding-bottom: 12px; }
   .restaurant-card .title {
@@ -99,7 +101,7 @@ nav {
     font-weight: bold; }
   .restaurant-card .caption {
     font-size: 14px;
-    color: var(--light-gray); }
+    color: var(--medium-gray); }
   .restaurant-card .score {
     background-color: var(--green);
     color: #fff;
