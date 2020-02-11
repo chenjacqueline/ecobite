@@ -8,6 +8,19 @@ var map = new mapboxgl.Map({
   zoom: 12 // Starting zoom level
 });
 
+axios.get("http://localhost:3000/testData").then(response => {
+  let restaurantList = response.data;
+  console.log(restaurantList);
+  restaurantList.forEach(restaurant => {
+    console.log(restaurant.location.lng + " " + restaurant.location.lat);
+    // add marker to map
+    var marker = new mapboxgl.Marker()
+      .setLngLat([restaurant.location.lng, restaurant.location.lat])
+      .setPopup(popup)
+      .addTo(map);
+  });
+});
+
 map.on("load", function() {
   var geocoder = new MapboxGeocoder({
     // Initialize the geocoder
@@ -15,7 +28,7 @@ map.on("load", function() {
     mapboxgl: mapboxgl, // Set the mapbox-gl instance
     zoom: 20, // Set the zoom level for geocoding results
     placeholder: "Burgermeister, Bonanza Coffee, ...", // This placeholder text will display in the search bar
-    bbox: [52.669, 13.088, 52.341, 13.76] // Set a bounding box
+    bbox: [52.572251, 13.279192, 52.414016, 13.640368] // Set a bounding box
   });
 
   // Add the geocoder to the map
