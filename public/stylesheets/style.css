@@ -1,6 +1,6 @@
 :root {
   --green: #03a87c;
-  --light-gray: #c6c8c7;
+  --light-gray: #ebeeed;
   --medium-gray: #b5bcba; }
 
 * {
@@ -8,7 +8,9 @@
   padding: 0; }
 
 body {
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Muli", "Open Sans", sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px; }
 
 a {
   color: #00b7ff; }
@@ -20,7 +22,7 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid lightgray; }
+  border-bottom: 1px solid var(--light-gray); }
   nav a {
     padding-left: 16px; }
 
@@ -35,22 +37,53 @@ nav {
   opacity: 0;
   visibility: hidden;
   transform: scale(1.1);
-  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s; }
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  z-index: 10; }
 
-.modal-content {
+.modal-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 550px;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 1rem 1.5rem;
-  width: 24rem; }
+  padding: 2rem 2rem 3rem 2rem;
+  border-radius: 0.5rem;
+  text-align: center; }
+  .modal-wrapper .modal-new-user {
+    margin: 32px;
+    border-bottom: 1px solid var(--light-gray); }
+  .modal-wrapper .intro-text {
+    font-family: "Muli";
+    font-weight: 800;
+    font-size: 28px; }
+  .modal-wrapper button {
+    height: 44px;
+    border-radius: 22px;
+    width: 220px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: 4px;
+    margin: 8px; }
+  .modal-wrapper .facebook {
+    background-color: #1777f2;
+    color: #fff;
+    border: none; }
+  .modal-wrapper .google {
+    border: 1px solid var(--medium-gray); }
+  .modal-wrapper .caption {
+    font-size: 14px; }
 
 .close-button {
   float: right;
-  width: 1.5rem;
+  font-size: 48px;
+  color: var(--medium-gray);
+  display: block;
+  width: 100%;
   line-height: 1.5rem;
-  text-align: center;
+  text-align: right;
+  margin-bottom: 24px;
   cursor: pointer;
   border-radius: 0;
   background-color: lightgray; }
@@ -64,25 +97,26 @@ nav {
   transform: scale(1);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; }
 
-/* MAPBOX + RESTAURANTS PAGE */
+/* RESTAURANTS + MAPBOX PAGE */
 #restaurant-listing-content {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center; }
+  align-items: center;
+  justify-content: space-between; }
   #restaurant-listing-content #restaurants-list {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
-    width: 45%; }
+    width: 35vw; }
   #restaurant-listing-content #map {
     position: absolute;
     top: 81px;
     bottom: 0;
     right: 0;
-    width: 55%; }
+    width: 60.5vw; }
 
 /* RESTAURANT CARD PARTIAL */
 .restaurant-card {
@@ -90,26 +124,29 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  width: 90%;
+  width: 100%;
   background-color: #fff;
-  padding: 44px 32px;
+  padding: 32px;
   border-bottom: 1px solid var(--light-gray); }
   .restaurant-card p {
     padding-bottom: 12px; }
   .restaurant-card .title {
-    font-size: 16px;
-    font-weight: bold; }
+    font-family: "Muli";
+    font-weight: 500;
+    font-size: 20px; }
   .restaurant-card .caption {
     font-size: 14px;
     color: var(--medium-gray); }
   .restaurant-card .score {
     background-color: var(--green);
     color: #fff;
+    font-family: "Muli";
+    font-weight: 800;
     padding: 8px;
     margin-bottom: 16px;
     width: 24px;
     height: 20px;
-    border-radius: 6px; }
+    border-radius: 8px; }
     .restaurant-card .score p {
       font-size: 16px;
       font-weight: bold; }
