@@ -22,6 +22,7 @@ function getRestaurantList() {
     });
 }
 
+// GETS THE RESTAURANT DATA AS A JSON
 router.get("/restaurantData", (req, res, next) => {
   getRestaurantList()
     .then(restaurantsList => {
@@ -33,6 +34,8 @@ router.get("/restaurantData", (req, res, next) => {
     });
 });
 
+
+//RESTAURANT RATINGS PAGE
 router.get("/rating", (req, res, next) => {
   res.render("rating");
 });
