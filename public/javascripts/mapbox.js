@@ -9,7 +9,7 @@ var map = new mapboxgl.Map({
 });
 
 //GET POINTS ON MAP FROM FOURSQUARE API
-axios.get("http://localhost:3000/testData").then(response => {
+axios.get("http://localhost:3000/restaurantData").then(response => {
   let restaurantList = response.data;
   console.log(restaurantList);
 
@@ -41,48 +41,50 @@ axios.get("http://localhost:3000/testData").then(response => {
       .addTo(map);
   });
 
-  // Pop-up function
-  var popup = new mapboxgl.Popup(); // Initialize a new popup
+  // SEARCH FOR LATER USE!!!
 
-  map.on("mouseenter", "tilequery-points", function(e) {
-    map.getCanvas().style.cursor = "pointer"; // When the cursor enters a feature, set it to a pointer
+  //   // Pop-up function
+  //   var popup = new mapboxgl.Popup(); // Initialize a new popup
 
-    var title = "<h3>" + e.features[0].properties.STORE_NAME + "</h3>"; // Set the store name
-    var storeType = "<h4>" + e.features[0].properties.STORE_TYPE + "</h4>"; // Set the store type
-    var storeAddress = "<p>" + e.features[0].properties.ADDRESS_LINE1 + "</p>"; // Set the store address
-    var obj = JSON.parse(e.features[0].properties.tilequery); // Get the feature's tilequery object (https://docs.mapbox.com/api/maps/#response-retrieve-features-from-vector-tiles)
-    var distance =
-      "<p>" +
-      (obj.distance / 1609.344).toFixed(2) +
-      " mi. from location" +
-      "</p>"; // Take the distance property, convert it to miles, and truncate it at 2 decimal places
+  //   map.on("mouseenter", "tilequery-points", function(e) {
+  //     map.getCanvas().style.cursor = "pointer"; // When the cursor enters a feature, set it to a pointer
 
-    var lon = e.features[0].properties.longitude;
-    var lat = e.features[0].properties.latitude;
-    var coordinates = new mapboxgl.LngLat(lon, lat); // Create a new LngLat object (https://docs.mapbox.com/mapbox-gl-js/api/#lnglatlike)
-    var content = title + storeType + storeAddress + distance; // All the HTML elements
+  //     var title = "<h3>" + e.features[0].properties.STORE_NAME + "</h3>"; // Set the store name
+  //     var storeType = "<h4>" + e.features[0].properties.STORE_TYPE + "</h4>"; // Set the store type
+  //     var storeAddress = "<p>" + e.features[0].properties.ADDRESS_LINE1 + "</p>"; // Set the store address
+  //     var obj = JSON.parse(e.features[0].properties.tilequery); // Get the feature's tilequery object (https://docs.mapbox.com/api/maps/#response-retrieve-features-from-vector-tiles)
+  //     var distance =
+  //       "<p>" +
+  //       (obj.distance / 1609.344).toFixed(2) +
+  //       " mi. from location" +
+  //       "</p>"; // Take the distance property, convert it to miles, and truncate it at 2 decimal places
 
-    popup
-      .setLngLat(coordinates) // Set the popup at the given coordinates
-      .setHTML(content) // Set the popup contents equal to the HTML elements you created
-      .addTo(map); // Add the popup to the map
-  });
+  //     var lon = e.features[0].properties.longitude;
+  //     var lat = e.features[0].properties.latitude;
+  //     var coordinates = new mapboxgl.LngLat(lon, lat); // Create a new LngLat object (https://docs.mapbox.com/mapbox-gl-js/api/#lnglatlike)
+  //     var content = title + storeType + storeAddress + distance; // All the HTML elements
 
-  map.on("mouseleave", "tilequery-points", function() {
-    map.getCanvas().style.cursor = ""; // Reset the cursor when it leaves the point
-    popup.remove(); // Remove the popup when the cursor leaves the point
-  });
-});
+  //     popup
+  //       .setLngLat(coordinates) // Set the popup at the given coordinates
+  //       .setHTML(content) // Set the popup contents equal to the HTML elements you created
+  //       .addTo(map); // Add the popup to the map
+  //   });
 
-map.on("load", function() {
-  var geocoder = new MapboxGeocoder({
-    // Initialize the geocoder
-    accessToken: mapboxgl.accessToken, // Set the access token
-    mapboxgl: mapboxgl, // Set the mapbox-gl instance
-    zoom: 20, // Set the zoom level for geocoding results
-    placeholder: "Burgermeister, Bonanza Coffee, ...", // This placeholder text will display in the search bar
-    bbox: [52.572251, 13.279192, 52.414016, 13.640368] // Set a bounding box
-  });
+  //   map.on("mouseleave", "tilequery-points", function() {
+  //     map.getCanvas().style.cursor = ""; // Reset the cursor when it leaves the point
+  //     popup.remove(); // Remove the popup when the cursor leaves the point
+  //   });
+  // });
+
+  // map.on("load", function() {
+  //   var geocoder = new MapboxGeocoder({
+  //     // Initialize the geocoder
+  //     accessToken: mapboxgl.accessToken, // Set the access token
+  //     mapboxgl: mapboxgl, // Set the mapbox-gl instance
+  //     zoom: 20, // Set the zoom level for geocoding results
+  //     placeholder: "Burgermeister, Bonanza Coffee, ...", // This placeholder text will display in the search bar
+  //     bbox: [52.572251, 13.279192, 52.414016, 13.640368] // Set a bounding box
+  //   });
 
   // // Add the geocoder to the map
   // map.addControl(geocoder, "top-left"); // Add the search box to the top left

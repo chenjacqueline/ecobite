@@ -10,9 +10,6 @@ const restaurantSchema = new Schema({
     type: String,
     required: true
   },
-  website: {
-    type: String
-  },
   coordinates: [Number],
   photo: {
     type: String
