@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
+const Score = require("../models/Score");
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const endpoint = `https://api.foursquare.com/v2/venues/search?ll=52.5200,13.40508&radius=2000&limit=50&query=food&intent=browse&client_id=${clientId}&client_secret=${clientSecret}&v=20200210`;
@@ -24,6 +25,7 @@ function getRestaurantList() {
     });
 }
 
+// FOURSQUARE JSON
 router.get("/restaurantData", (req, res, next) => {
   getRestaurantList()
     .then(restaurantsList => {
@@ -35,8 +37,33 @@ router.get("/restaurantData", (req, res, next) => {
     });
 });
 
-router.get("/rating", (req, res, next) => {
-  res.render("rating");
+// LINK FROM THE RESTAURANT PARTIAL
+router.get("/:restaurantId/score", (req, res, next) => {
+  res.render("rating", { restaurantId: req.params.restaurantId });
+});
+
+// SUBMISSION OF SCORE FORM
+router.post("/:restaurantId/score", (req, res, next) => {
+  // console.log(req.body);
+  let restaurantId = req.params.restaurantId;
+
+  Score.create({
+    userID: req.user._id,
+    restaurantID: restaurantId, // Foursquare, not Mongo
+    scores: {
+      eatIn: req.body.eatIn,
+      takeAway: req.body.takeAway,
+      reusableCup: req.body.reusableCup,
+      veg: req.body.veg,
+      dairy: req.body.dairy
+    }
+  })
+    .then(newScore => {
+      res.redirect("/restaurants");
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 module.exports = router;
