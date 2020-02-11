@@ -1,12 +1,13 @@
-<form action="/restaurants" method="POST">
+<form action="/{{restaurantId}}/score" method="POST">
   <h2>Rating for Restaurant1</h2>
 
   <div class="dine-in">
-  <p>When dining in, does the restaurant use single-use products? E.g. plastic straws, plastic cutlery, disposable plates/cups.</p>
-  <input type="radio" name="eatIn" value="yes"> Yes 
-  <input type="radio" name="eatIn" value="no"> No<br>
+    <p>When dining in, does the restaurant use single-use products? E.g. plastic straws, plastic cutlery, disposable
+      plates/cups.</p>
+    <input type="radio" name="eatIn" value="true"> Yes
+    <input type="radio" name="eatIn" value="false"> No<br>
   </div>
-<br>
+  <br>
   <div class="take-away">
     <p>Are take-away containers at this restaurant compostable? E.g. paper cups.</p>
     <input type="radio" name="takeAway" value="0">Not at all/I don't know
@@ -16,11 +17,11 @@
     <input type="radio" name="takeAway" value="4">4
     <input type="radio" name="takeAway" value="5">All of it is compostable
   </div>
-<br>
+  <br>
   <div class="cup">
     <p>Is there a reusable cup program? E.g. services like Recup or using your own takeaway mug</p>
-    <input type="radio" name="reusableCup" value="yes">Yes
-    <input type="radio" name="reusableCup" value="no">No
+    <input type="radio" name="reusableCup" value="true">Yes
+    <input type="radio" name="reusableCup" value="false">No
   </div>
   <br>
   <div class="veg">
@@ -32,13 +33,13 @@
     <input type="radio" name="veg" value="4">4
     <input type="radio" name="veg" value="5">The restaurant serves only vegan/vegetarian dishes
   </div>
-<br>
+  <br>
   <div class="dairy">
     <p>Are there dairy alternatives available? E.g. oat milk, soy milk.</p>
-    <input type="radio" name="dairy" value="yes">Yes
-  <input type="radio" name="dairy" value="no">No
+    <input type="radio" name="dairy" value="true">Yes
+    <input type="radio" name="dairy" value="false">No
   </div>
-  
-  <button type="submit">Submit your rating</button>
-  
+
+  <input type="submit" method="POST">
+
 </form>
