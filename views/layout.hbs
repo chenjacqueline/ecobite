@@ -13,19 +13,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Axios -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    #map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
   <!-- Adding the geocoder plugin -->
   <script
     src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js"></script>
@@ -40,7 +27,7 @@
   {{!-- GLOBAL NAV BAR --}}
   <nav>
     <div class="logo-div">
-      <p>ecobite</p>
+      <p><a href="http://localhost:3000">ecobite</a></p>
     </div>
     <div class="nav-links">
       <a href="/login">Log in</a>
@@ -58,7 +45,7 @@
       <a href="#">Continue with Google</a><br />
       <a href="/signup">Or sign up with your email address</a><br />
       <br />
-      <p>Already have an account? <a href="#">Log in with your email address</a></p>
+      <p>Already have an account? <a href="/login">Log in with your email address</a></p>
     </div>
   </div>
 

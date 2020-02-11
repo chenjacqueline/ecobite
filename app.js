@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+const bcrypt = require("bcrypt");
 const favicon = require("serve-favicon");
 const hbs = require("hbs");
 const mongoose = require("mongoose");
@@ -54,7 +55,6 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    // The following is from connect-mongo
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
@@ -69,6 +69,7 @@ app.use(passport.session());
 const flash = require("connect-flash");
 app.use(flash());
 
+// PASSPORT SERIALIZE & DESERIALIZE
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
@@ -83,28 +84,36 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-// PASSPORT: LOCAL STRATEGY FOR EMAIL SIGNUP / LOGIN
+// LOGIN AUTHENTICATION
 passport.use(
-  new LocalStrategy((email, password, done) => {
-    User.findOne({ email: email })
-      .then(userDocument => {
-        console.log(userDocument);
-        if (!userDocument) {
-          done(null, false, { message: "Incorrect credentials" });
-          return;
-        }
-        bcrypt.compare(password, userDocument.password).then(match => {
-          if (!match) {
+  new LocalStrategy(
+    { usernameField: "email", passwordField: "password" },
+    (email, password, done) => {
+      // Look for an existing user with the given email
+      User.findOne({ email: email })
+        .then(userDocument => {
+          // If user doesn't exist, return error
+          if (!userDocument) {
             done(null, false, { message: "Incorrect credentials" });
             return;
           }
-          done(null, userDocument);
+          // Compare entered password with password associated with userDocument
+          bcrypt.compare(password, userDocument.password).then(match => {
+            // If doesn't match, return error
+            if (!match) {
+              done(null, false, { message: "Incorrect credentials" });
+              return;
+            }
+            console.log(userDocument);
+            // If user exists and password matches then log the user in
+            done(null, userDocument);
+          });
+        })
+        .catch(err => {
+          done(err);
         });
-      })
-      .catch(err => {
-        done(err);
-      });
-  })
+    }
+  )
 );
 
 app.set("views", path.join(__dirname, "views"));

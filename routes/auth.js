@@ -3,8 +3,6 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require("../models/User");
-const Restaurant = require("../models/Restaurant");
-const Score = require("../models/Score");
 
 // SIGN UP WITH EMAIL ADDRESS
 router.get("/signup", (req, res, next) => {
@@ -59,8 +57,9 @@ router.post("/signup", (req, res, next) => {
 });
 
 // LOG IN WITH EMAIL ADDRESS
+
 router.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", { errorMessage: req.flash("error") });
 });
 
 router.post(
@@ -71,11 +70,5 @@ router.post(
     failureFlash: true
   })
 );
-
-// let info = zxcvbn(password);
-// if (info.score < 3) {
-//   res.render("signup", { errorMessage: info.feedback.suggestions[0] });
-//   return;
-// }
 
 module.exports = router;
