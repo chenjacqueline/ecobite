@@ -6,8 +6,10 @@ const clientSecret = process.env.CLIENT_SECRET;
 const endpoint = `https://api.foursquare.com/v2/venues/search?ll=52.5200,13.40508&radius=2000&limit=50&query=food&intent=browse&client_id=${clientId}&client_secret=${clientSecret}&v=20200210`;
 
 router.get("/restaurants", (req, res, next) => {
-  console.log("REST");
-  res.render("restaurants");
+  return getRestaurantList().then(({ data }) => {
+    const restaurantsJSON = data.response.venues;
+    res.render("restaurants", { restaurantsList: restaurantsJSON });
+  });
 });
 
 // DATA-GRABBING FUNCTIONS

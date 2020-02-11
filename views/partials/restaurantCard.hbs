@@ -1,10 +1,12 @@
 <div class="restaurant-card">
+
   <div class="restaurant-details">
-    <p class="title">Street Food Thursday</p>
-    <p>Eisenbahnstr. 42/43</p>
-    <p class="caption">Street Food Gathering</p>
+    <p class="title">{{this.name}}</p>
+    <p>{{this.location.address}}</p>
+    <p class="caption">{{this.category.0.shortName}}</p>
     <a href="#">Rate restaurant</a>
   </div>
+
   <div class="restaurant-rating">
     <div class="score">
       <p>8.0</p>
