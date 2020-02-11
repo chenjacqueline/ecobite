@@ -6,13 +6,16 @@ const restaurantSchema = new Schema({
     type: String,
     required: true
   },
-  scores: [{
-    eatIn: Number,
-    takeAway: Number,
-    reusableCup: Number,
-    veg: Number,
-    dairy: Number
-  }]
+  scores: [
+    {
+      eatIn: Number,
+      takeAway: Number,
+      reusableCup: Number,
+      veg: Number,
+      dairy: Number
+    }
+  ],
+  aggregatescore: Number
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
