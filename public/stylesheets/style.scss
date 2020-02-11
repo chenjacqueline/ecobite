@@ -1,6 +1,7 @@
 :root {
-  --light-gray: #b5bcba;
   --green: #03a87c;
+  --light-gray: #c6c8c7;
+  --medium-gray: #b5bcba;
 }
 
 * {
@@ -107,6 +108,7 @@ nav {
   width: 90%;
   background-color: #fff;
   padding: 44px 32px;
+  border-bottom: 1px solid var(--light-gray);
   p {
     padding-bottom: 12px;
   }
@@ -116,7 +118,7 @@ nav {
   }
   .caption {
     font-size: 14px;
-    color: var(--light-gray);
+    color: var(--medium-gray);
   }
   .score {
     background-color: var(--green);

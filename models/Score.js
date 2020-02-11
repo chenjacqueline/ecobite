@@ -3,13 +3,11 @@ const Schema = mongoose.Schema;
 
 const scoreSchema = new Schema({
   userID: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true
   },
   restaurantID: {
-    type: Schema.Types.ObjectId,
-    ref: "Restaurant",
+    type: String,
     required: true
   },
   timestamp: {
