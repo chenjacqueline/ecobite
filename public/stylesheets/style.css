@@ -138,25 +138,28 @@ button {
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; }
 
 /* RESTAURANTS + MAPBOX PAGE */
-#restaurant-listing-content {
+#restaurants-page {
   width: 100vw;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between; }
-  #restaurant-listing-content #restaurants-list {
+  #restaurants-page #restaurants-list {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
-    width: 35vw; }
-  #restaurant-listing-content #map {
+    width: 40vw;
+    position: absolute;
+    top: 81;
+    overflow-y: scroll; }
+  #restaurants-page #map {
     position: absolute;
     top: 81px;
     bottom: 0;
     right: 0;
-    width: 60.5vw; }
+    width: 60vw; }
 
 /* RESTAURANT CARD PARTIAL */
 .restaurant-card {
@@ -164,7 +167,6 @@ button {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
   background-color: #fff;
   padding: 32px;
   border-bottom: 1px solid var(--light-gray); }
@@ -172,25 +174,55 @@ button {
     padding-bottom: 12px; }
   .restaurant-card .title {
     font-family: "Muli";
-    font-weight: 500;
+    color: var(--dark-green);
+    font-weight: 700;
     font-size: 20px; }
   .restaurant-card .caption {
     font-size: 14px;
     color: var(--medium-gray); }
   .restaurant-card .score {
-    background-color: var(--green);
-    color: #fff;
     font-family: "Muli";
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: 700;
     padding: 8px;
     margin-bottom: 16px;
     width: 24px;
     height: 20px;
-    border-radius: 8px; }
-    .restaurant-card .score p {
-      font-size: 16px;
-      font-weight: bold; }
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-content: center; }
+  .restaurant-card .scored {
+    background-color: var(--green);
+    color: #fff; }
+  .restaurant-card .not-scored {
+    background-color: var(--light-gray);
+    color: #fff; }
   .restaurant-card a {
     font-size: 14px; }
+
+/* TOOLTIP STYLING */
+.tooltip {
+  position: relative;
+  display: inline-block; }
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  font-weight: 100;
+  font-size: 12px;
+  text-align: center;
+  visibility: hidden;
+  width: 130px;
+  background-color: var(--dark-green);
+  color: #fff;
+  padding: 5px 0;
+  border-radius: 4px;
+  position: absolute;
+  top: 20%;
+  right: 120%;
+  z-index: 10; }
+
+.tooltip:hover .tooltiptext {
+  visibility: visible; }
 
 /*# sourceMappingURL=style.css.map */
