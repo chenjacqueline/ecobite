@@ -67,25 +67,25 @@ router.get("/restaurantData", (req, res, next) => {
 
 // LINK FROM THE RESTAURANT PARTIAL
 router.get("/:restaurantId/score", (req, res, next) => {
-  // Get Foursquare data:
-  return getRestaurantList()
-  .then(({ data }) => {
-    const restaurantsJSON = data.response.venues;
+  res.render("scoreform", {restaurantId: req.params.restaurantId});
+  // // Get Foursquare data:
+  // return getRestaurantList().then(({ data }) => {
+  //   const restaurantsJSON = data.response.venues;
 
-    const restaurantId = req.params.restaurantId;
-    let restaurantName;
+  //   const restaurantId = req.params.restaurantId;
+  //   let restaurantName;
 
-    // Find name of restaurant with that restaurant id:
-    for (const restaurant of restaurantsJSON) {
-      if (restaurant.id === restaurantId) {
-        return (restaurantName = restaurant.name);
-      }
-    }
+  //   // Find name of restaurant with that restaurant id:
+  //   for (const restaurant of restaurantsJSON) {
+  //     if (restaurant.id === restaurantId) {
+  //       return (restaurantName = restaurant.name);
+  //     }
+  //   }
 
-    res.render("scoreform", {
-      restaurantId: req.params.restaurantId,
-      restaurantName: restaurantName
-    });
+  //   res.render("scoreform", {
+  //     restaurantId: req.params.restaurantId,
+  //     restaurantName: restaurantName
+  //   });
   });
 });
 
