@@ -28,6 +28,7 @@ function getRestaurantList() {
 
 function calculateScore(arr) {
   // Total score per attribute
+  console.log(arr);
   let eatIn = 0;
   let takeAway = 0;
   let reusableCup = 0;
@@ -42,38 +43,80 @@ function calculateScore(arr) {
   let dairyCount = 0;
 
   let score;
+  let givenScores = [];
   // const totalAttributes = Object.keys(restaurantSchema).scores[0].length;
 
-  // for (let i = 0; i < scores.length; i++) {
   for (const el of arr) {
-    if (el.eatIn) {
+    console.log("el: " + el.eatIn);
+    if (el.eatIn >= 0) {
       eatIn += el.eatIn;
       eatInCount++;
+      if (givenScores.indexOf(eatIn) == -1) {
+        givenScores.push(eatIn);
+      }
     }
-    if (el.takeAway) {
+    if (el.takeAway >= 0) {
       takeAway += el.takeAway;
       takeAwayCount++;
+      if (givenScores.indexOf(takeAway) == -1) {
+        givenScores.push(takeAway);
+      }
     }
-    if (el.reusableCup) {
+    if (el.reusableCup >= 0) {
       reusableCup += el.reusableCup;
       reusableCupCount++;
+      if (givenScores.indexOf(reusableCup) == -1) {
+        givenScores.push(reusableCup);
+      }
     }
-    if (el.veg) {
+    if (el.veg >= 0) {
       veg += el.veg;
       vegCount++;
+      if (givenScores.indexOf(veg) == -1) {
+        givenScores.push(veg);
+      }
     }
-    if (el.dairy) {
+    if (el.dairy >= 0) {
       dairy += el.dairy;
       dairyCount++;
+      if (givenScores.indexOf(dairy) == -1) {
+        givenScores.push(dairy);
+      }
     }
   }
-  return (score =
-    (eatIn / eatInCount +
-      takeAway / takeAwayCount +
-      reusableCup / reusableCupCount +
-      veg / vegCount +
-      dairy / dairyCount) /
-    5);
+
+  if (eatInCount != 0) {
+    eatIn = eatIn / eatInCount;
+  }
+
+  if (takeAwayCount != 0) {
+    takeAway = takeAway / takeAwayCount;
+  }
+
+  if (reusableCupCount != 0) {
+    reusableCup = reusableCup / reusableCupCount;
+  }
+
+  if (vegCount != 0) {
+    veg = veg / vegCount;
+  }
+
+  if (dairyCount != 0) {
+    dairy = dairy / dairyCount;
+  }
+
+  score = (eatIn + takeAway + reusableCup + veg + dairy) / givenScores.length;
+
+  console.log(Math.round(score * 10) / 10);
+  return Math.round(score * 10) / 10;
+
+  // return (score =
+  //   (eatIn / eatInCount +
+  //     takeAway / takeAwayCount +
+  //     reusableCup / reusableCupCount +
+  //     veg / vegCount +
+  //     dairy / dairyCount) /
+  //   givenScores.length);
   // return (score = Math.round(score * 10) / 10);
 }
 
@@ -120,9 +163,9 @@ router.post("/:restaurantId/score", (req, res, next) => {
       Restaurant.findOne({ id: restaurantId }).then(response => {
         // If restaurant doesn't exist
         if (!response) {
-          // let testArr = [scores];
-          // let aggregateScore = calculateScore(testArr);
-          // console.log(aggregateScore);
+          let scoreArray = [scores];
+          let aggregateScore = calculateScore(scoreArray);
+          console.log(scoreArray);
 
           Restaurant.create({
             id: restaurantId,
@@ -133,9 +176,9 @@ router.post("/:restaurantId/score", (req, res, next) => {
           });
           // If restaurant exists
         } else {
-          let testArr = [...response.scores, scores];
+          let scoreArray = [...response.scores, scores];
           // Calculate aggregate score with the test array (existing scores + new scores)
-          let aggregateScore = calculateScore(testArr);
+          let aggregateScore = calculateScore(scoreArray);
           console.log(aggregateScore);
 
           Restaurant.findByIdAndUpdate(response._id, {
