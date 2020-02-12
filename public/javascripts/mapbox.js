@@ -9,7 +9,7 @@ var map = new mapboxgl.Map({
 });
 
 //GET POINTS ON MAP FROM FOURSQUARE API
-axios.get("http://ecobite.herokuapp.com/restaurantData").then(response => {
+axios.get("https://ecobite.herokuapp.com/restaurantData").then(response => {
   let restaurantList = response.data;
   console.log(restaurantList);
 
