@@ -67,7 +67,7 @@ router.get("/restaurantData", (req, res, next) => {
 
 // LINK FROM THE RESTAURANT PARTIAL
 router.get("/:restaurantId/score", (req, res, next) => {
-  res.render("scoreform", {restaurantId: req.params.restaurantId});
+  res.render("scoreform", { restaurantId: req.params.restaurantId });
   // // Get Foursquare data:
   // return getRestaurantList().then(({ data }) => {
   //   const restaurantsJSON = data.response.venues;
@@ -86,7 +86,7 @@ router.get("/:restaurantId/score", (req, res, next) => {
   //     restaurantId: req.params.restaurantId,
   //     restaurantName: restaurantName
   //   });
-  });
+  // });
 });
 
 module.exports = router;
