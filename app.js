@@ -14,7 +14,9 @@ const path = require("path");
 const User = require("./models/User");
 
 mongoose
-  .connect("mongodb://localhost/ecobite", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/ecobite", {
+    useNewUrlParser: true
+  })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
@@ -123,6 +125,11 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 // REGISTER HANDLEBAR PARTIALS
 hbs.registerPartials(__dirname + "/views/partials");
+
+// REGISTER HANDLEBAR HELPERS
+hbs.registerHelper("ifEquals", function(arg1, arg2, options) {
+  return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+});
 
 // default value for title local
 app.locals.title = "ecobite";

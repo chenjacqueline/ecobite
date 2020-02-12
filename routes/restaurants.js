@@ -19,8 +19,18 @@ router.get("/restaurants", (req, res, next) => {
         .then(restaurantDocument => {
           // Add an aggregate score property + value to Foursquare obj:
           restaurant.aggregatescore = restaurantDocument.aggregatescore;
-          return restaurant;
+
+          // Set quality levels:
+          // if (restaurant.aggregatescore > 8) {
+          //   restaurant.level = "high";
+          // } else if (restaurant.aggregatescore > 5) {
+          //   restaurant.level = "medium";
+          // } else {
+          //   restaurant.level = "low";
+          // }
+          // return restaurant;
         })
+
         // If restaurant doesn't exist in database with Foursquare ID:
         .catch(() => {
           console.log("No existing aggregate score yet.");
@@ -57,7 +67,26 @@ router.get("/restaurantData", (req, res, next) => {
 
 // LINK FROM THE RESTAURANT PARTIAL
 router.get("/:restaurantId/score", (req, res, next) => {
-  res.render("rating", { restaurantId: req.params.restaurantId });
+  res.render("scoreform", { restaurantId: req.params.restaurantId });
+  // // Get Foursquare data:
+  // return getRestaurantList().then(({ data }) => {
+  //   const restaurantsJSON = data.response.venues;
+
+  //   const restaurantId = req.params.restaurantId;
+  //   let restaurantName;
+
+  //   // Find name of restaurant with that restaurant id:
+  //   for (const restaurant of restaurantsJSON) {
+  //     if (restaurant.id === restaurantId) {
+  //       return (restaurantName = restaurant.name);
+  //     }
+  //   }
+
+  //   res.render("scoreform", {
+  //     restaurantId: req.params.restaurantId,
+  //     restaurantName: restaurantName
+  //   });
+  // });
 });
 
 module.exports = router;

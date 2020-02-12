@@ -1,5 +1,5 @@
 <form action="/{{restaurantId}}/score" method="POST">
-  <h2>Rating for Restaurant1</h2>
+  <h2>Rating for {{restaurantName}}</h2>
 
   <div class="eat-in">
     <p>When dining in, does the restaurant use single-use products? E.g. plastic straws, plastic cutlery, disposable
@@ -44,7 +44,7 @@
     <label><input type="radio" name="dairy" value="0">No</label>
     <label><input type="radio" name="dairy" value="-1"> I don't know/I don't want to say</label>
   </div>
-<br>
+  <br>
   <input type="submit" method="POST">
 
 </form>

@@ -208,14 +208,16 @@ button {
 
 /* Tooltip text */
 .tooltip .tooltiptext {
+  font-family: "Open sans", sans-serif;
   font-weight: 100;
-  font-size: 12px;
+  font-size: 10px;
+  letter-spacing: 1px;
   text-align: center;
   visibility: hidden;
   width: 130px;
   background-color: var(--dark-green);
   color: #fff;
-  padding: 5px 0;
+  padding: 6px;
   border-radius: 4px;
   position: absolute;
   top: 20%;
