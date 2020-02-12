@@ -19,8 +19,18 @@ router.get("/restaurants", (req, res, next) => {
         .then(restaurantDocument => {
           // Add an aggregate score property + value to Foursquare obj:
           restaurant.aggregatescore = restaurantDocument.aggregatescore;
-          return restaurant;
+
+          // Set quality levels:
+          // if (restaurant.aggregatescore > 8) {
+          //   restaurant.level = "high";
+          // } else if (restaurant.aggregatescore > 5) {
+          //   restaurant.level = "medium";
+          // } else {
+          //   restaurant.level = "low";
+          // }
+          // return restaurant;
         })
+
         // If restaurant doesn't exist in database with Foursquare ID:
         .catch(() => {
           console.log("No existing aggregate score yet.");
