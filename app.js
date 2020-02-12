@@ -14,7 +14,9 @@ const path = require("path");
 const User = require("./models/User");
 
 mongoose
-  .connect("mongodb://localhost/ecobite", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/ecobite", {
+    useNewUrlParser: true
+  })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`

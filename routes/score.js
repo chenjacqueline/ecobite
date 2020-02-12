@@ -3,6 +3,7 @@ const router = express.Router();
 // const axios = require("axios"); // Is this needed in this file?
 const Score = require("../models/Score");
 const Restaurant = require("../models/Restaurant");
+const User = require("../models/User");
 const calculateScore = require("../algorithms/scoring.js");
 
 // SUBMISSION OF SCORE FORM
@@ -26,6 +27,22 @@ router.post("/:restaurantId/score", (req, res, next) => {
     scores
   })
     .then(() => {
+      console.log(req.user._id);
+      console.log(typeof restaurantId);
+      // User.findOne({ _id: req.user._id }).then(data => {
+      //   console.log("found", data);
+      // });
+      User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: {
+            ratedRestaurants: restaurantId
+          }
+        }
+      ).then();
+    })
+    .then(data => {
+      console.log(data);
       Restaurant.findOne({ id: restaurantId }).then(response => {
         // If restaurant doesn't exist
         if (!response) {
