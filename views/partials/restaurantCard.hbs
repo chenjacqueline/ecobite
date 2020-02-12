@@ -1,3 +1,5 @@
+{{!-- Data passed through: foursquareData + restaurantDocuments --}}
+
 <div class="restaurant-card">
 
   <div class="restaurant-details">
@@ -7,9 +9,18 @@
     <a href="/{{this.id}}/score">Rate restaurant</a>
   </div>
 
+  {{#if this.aggregatescore}}
   <div class="restaurant-score">
-    <div class="score">
-      <p>8.0</p>
+    <div class="score scored">
+      <p>{{this.aggregatescore}}</p>
     </div>
   </div>
+  {{else}}
+  <div class="restaurant-score">
+    <div class="score not-scored tooltip">
+      <p>N/A</p>
+      <p class="tooltiptext">This restaurant is not yet rated.</p>
+    </div>
+  </div>
+  {{/if}}
 </div>

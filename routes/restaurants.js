@@ -11,6 +11,22 @@ const endpoint = `https://api.foursquare.com/v2/venues/search?ll=52.5200,13.4050
 router.get("/restaurants", (req, res, next) => {
   return getRestaurantList().then(({ data }) => {
     const restaurantsJSON = data.response.venues;
+
+    // Looping through array of Foursquare restaurants
+    for (const restaurant of restaurantsJSON) {
+      // If restaurant in database with a Foursquare ID:
+      Restaurant.findOne({ id: restaurant.id })
+        .then(restaurantDocument => {
+          // Add an aggregate score property + value to Foursquare obj:
+          restaurant.aggregatescore = restaurantDocument.aggregatescore;
+          return restaurant;
+        })
+        // If restaurant doesn't exist in database with Foursquare ID:
+        .catch(() => {
+          console.log("No existing aggregate score yet.");
+        });
+    }
+    // Render the restaurants page with the updated restaurantsJSON:
     res.render("restaurants", { restaurantsList: restaurantsJSON });
   });
 });

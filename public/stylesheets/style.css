@@ -174,25 +174,55 @@ button {
     padding-bottom: 12px; }
   .restaurant-card .title {
     font-family: "Muli";
-    font-weight: 500;
+    color: var(--dark-green);
+    font-weight: 700;
     font-size: 20px; }
   .restaurant-card .caption {
     font-size: 14px;
     color: var(--medium-gray); }
   .restaurant-card .score {
-    background-color: var(--green);
-    color: #fff;
     font-family: "Muli";
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: 700;
     padding: 8px;
     margin-bottom: 16px;
     width: 24px;
     height: 20px;
-    border-radius: 8px; }
-    .restaurant-card .score p {
-      font-size: 16px;
-      font-weight: bold; }
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-content: center; }
+  .restaurant-card .scored {
+    background-color: var(--green);
+    color: #fff; }
+  .restaurant-card .not-scored {
+    background-color: var(--light-gray);
+    color: #fff; }
   .restaurant-card a {
     font-size: 14px; }
+
+/* TOOLTIP STYLING */
+.tooltip {
+  position: relative;
+  display: inline-block; }
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  font-weight: 100;
+  font-size: 12px;
+  text-align: center;
+  visibility: hidden;
+  width: 130px;
+  background-color: var(--dark-green);
+  color: #fff;
+  padding: 5px 0;
+  border-radius: 4px;
+  position: absolute;
+  top: 20%;
+  right: 120%;
+  z-index: 10; }
+
+.tooltip:hover .tooltiptext {
+  visibility: visible; }
 
 /*# sourceMappingURL=style.css.map */
