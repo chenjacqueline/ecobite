@@ -17,7 +17,8 @@ const userSchema = new Schema({
   },
   // social login, restaurants scored
   facebookId: String,
-  googleId: String
+  googleId: String,
+  ratedRestaurants: [String]
 });
 
 const User = mongoose.model("User", userSchema);

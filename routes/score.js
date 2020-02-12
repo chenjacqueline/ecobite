@@ -3,6 +3,7 @@ const router = express.Router();
 // const axios = require("axios"); // Is this needed in this file?
 const Score = require("../models/Score");
 const Restaurant = require("../models/Restaurant");
+const User = require("../models/User");
 const calculateScore = require("../algorithms/scoring.js");
 
 // SUBMISSION OF SCORE FORM
@@ -25,6 +26,14 @@ router.post("/:restaurantId/score", (req, res, next) => {
     restaurantID: restaurantId, // Foursquare, not Mongo
     scores
   })
+    .then(() => {
+      console.log(req.user._id);
+      console.log(restaurantId);
+      User.findByIdAndUpdate({
+        id: req.user._id,
+        $push: { ratedRestaurants: restaurantId }
+      });
+    })
     .then(() => {
       Restaurant.findOne({ id: restaurantId }).then(response => {
         // If restaurant doesn't exist
