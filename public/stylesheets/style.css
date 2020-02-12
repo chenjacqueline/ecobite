@@ -138,25 +138,28 @@ button {
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; }
 
 /* RESTAURANTS + MAPBOX PAGE */
-#restaurant-listing-content {
+#restaurants-page {
   width: 100vw;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between; }
-  #restaurant-listing-content #restaurants-list {
+  #restaurants-page #restaurants-list {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
-    width: 35vw; }
-  #restaurant-listing-content #map {
+    width: 40vw;
+    position: absolute;
+    top: 81;
+    overflow-y: scroll; }
+  #restaurants-page #map {
     position: absolute;
     top: 81px;
     bottom: 0;
     right: 0;
-    width: 60.5vw; }
+    width: 60vw; }
 
 /* RESTAURANT CARD PARTIAL */
 .restaurant-card {
@@ -164,7 +167,6 @@ button {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
   background-color: #fff;
   padding: 32px;
   border-bottom: 1px solid var(--light-gray); }
