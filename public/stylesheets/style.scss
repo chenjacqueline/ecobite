@@ -1,7 +1,8 @@
 :root {
-  --green: #03a87c;
+  --green: #00ae80;
   --light-gray: #ebeeed;
   --medium-gray: #b5bcba;
+  --dark-green: #092d26;
 }
 
 * {
@@ -12,11 +13,22 @@
 body {
   font-family: "Muli", "Open Sans", sans-serif;
   font-weight: 300;
-  letter-spacing: 1px;
 }
 
 a {
-  color: #00b7ff;
+  color: var(--dark-green);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 2px;
+  color: var(--dark-green);
+  margin-bottom: 32px;
 }
 
 nav {
@@ -32,7 +44,56 @@ nav {
   border-bottom: 1px solid var(--light-gray);
 }
 
-/* Signup Modal window */
+/* HOME PAGE */
+#home-background {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../assets/ecobite-background.png");
+  background-size: cover;
+  background-position: top;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  div {
+    margin-top: 150px;
+    width: 50%;
+    text-align: center;
+  }
+}
+
+/* BUTTON STYLES */
+button:focus {
+  outline: none;
+}
+
+button {
+  height: 48px;
+  border-radius: 24px;
+  width: 220px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  padding: 4px;
+  margin: 8px;
+}
+.solid {
+  background-color: var(--green);
+  color: #fff;
+  border: none;
+}
+.facebook {
+  background-color: #1777f2;
+  color: #fff;
+  border: none;
+}
+.google {
+  // color: var(--medium-gray);
+  border: 1px solid var(--medium-gray);
+}
+
+/* SIGN UP MODAL */
 .modal {
   position: fixed;
   left: 0;
@@ -66,27 +127,8 @@ nav {
     // width: 90%;
     // text-align: left;
     font-family: "Muli";
-    font-weight: 800;
-    font-size: 28px;
-  }
-  button {
-    height: 44px;
-    border-radius: 22px;
-    width: 220px;
-    font-size: 12px;
-    letter-spacing: 1px;
     font-weight: 700;
-    padding: 4px;
-    margin: 8px;
-  }
-  .facebook {
-    background-color: #1777f2;
-    color: #fff;
-    border: none;
-  }
-  .google {
-    // color: var(--medium-gray);
-    border: 1px solid var(--medium-gray);
+    font-size: 28px;
   }
   .caption {
     font-size: 14px;
@@ -130,6 +172,9 @@ nav {
     justify-content: flex-start;
     height: 100%;
     width: 35vw;
+    // position: fixed;
+    // top: 81;
+    // overflow-y: scroll;
   }
 
   #map {
