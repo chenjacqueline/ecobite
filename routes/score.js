@@ -28,13 +28,21 @@ router.post("/:restaurantId/score", (req, res, next) => {
   })
     .then(() => {
       console.log(req.user._id);
-      console.log(restaurantId);
-      User.findByIdAndUpdate({
-        id: req.user._id,
-        $push: { ratedRestaurants: restaurantId }
-      });
+      console.log(typeof restaurantId);
+      // User.findOne({ _id: req.user._id }).then(data => {
+      //   console.log("found", data);
+      // });
+      User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: {
+            ratedRestaurants: restaurantId
+          }
+        }
+      ).then();
     })
-    .then(() => {
+    .then(data => {
+      console.log(data);
       Restaurant.findOne({ id: restaurantId }).then(response => {
         // If restaurant doesn't exist
         if (!response) {
