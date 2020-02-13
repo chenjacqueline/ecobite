@@ -74,6 +74,8 @@ router.get("/:restaurantId/score", (req, res, next) => {
   let restaurantId = req.params.restaurantId;
 
   User.findById(userId, () => {
+    // Finds logged in user by ID and checks whether they have scored this restaurant yet, if FALSE, takes the user to a new score form, if TRUE, takes the user to an update score form
+
     if (!userRestaurants.includes(restaurantId)) {
       console.log("Restaurant not found");
       res.render("scoreform", { restaurantId });
