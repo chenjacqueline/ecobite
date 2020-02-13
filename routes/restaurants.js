@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const Score = require("../models/Score");
 const Restaurant = require("../models/Restaurant");
+const User = require("../models/User");
 const calculateScore = require("../algorithms/scoring.js"); // ARE THESE NEEDED IN THIS FILE?
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -67,7 +68,22 @@ router.get("/restaurantData", (req, res, next) => {
 
 // LINK FROM THE RESTAURANT PARTIAL
 router.get("/:restaurantId/score", (req, res, next) => {
-  res.render("scoreform", { restaurantId: req.params.restaurantId });
+  //console.log("Link found a user: ", req.user);
+  let userId = req.user._id;
+  let userRestaurants = req.user.ratedRestaurants;
+  let restaurantId = req.params.restaurantId;
+
+  User.findById(userId, () => {
+    if (!userRestaurants.includes(restaurantId)) {
+      console.log("Restaurant not found");
+      res.render("scoreform", { restaurantId });
+    } else {
+      console.log("Restaurant found");
+      res.render("updateform", { restaurantId });
+    }
+  });
+
+  // res.render("scoreform", { restaurantId: req.params.restaurantId });
 });
 
 module.exports = router;
