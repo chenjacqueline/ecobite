@@ -148,7 +148,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       console.log("this the profile", profile);
-      console.log("this is supposed to be the email", profile.email);
+      console.log("this is supposed to be the email", profile.emails);
       console.log("this is supposed to be the id", profile.id);
       console.log(Object.keys(profile));
 
@@ -159,7 +159,7 @@ passport.use(
             done(null, found); // Found is referring to the user
           } else {
             User.create({
-              email: profile.email,
+              email: profile.emails,
               googleId: profile.id
             }).then(createdUser => {
               done(null, createdUser);
