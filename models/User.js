@@ -3,9 +3,8 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   email: {
-    type: String,
+    type: String
     // required: true, // We need front-end validation, otherwise social login won't work
-    unique: true
   },
   password: {
     type: String

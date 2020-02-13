@@ -140,7 +140,7 @@ passport.use(
             User.create({
               googleId: profile.id,
               displayName: profile.displayName
-            }).then(created => {
+            }).then(createdUser => {
               done(null, createdUser);
             });
           }
