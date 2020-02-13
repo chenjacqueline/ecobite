@@ -14,31 +14,65 @@ router.get("/restaurants", (req, res, next) => {
     const restaurantsJSON = data.response.venues;
 
     // Looping through array of Foursquare restaurants
-    for (const restaurant of restaurantsJSON) {
-      // If restaurant in database with a Foursquare ID:
-      Restaurant.findOne({ id: restaurant.id })
-        .then(restaurantDocument => {
-          // Add an aggregate score property + value to Foursquare obj:
-          restaurant.aggregatescore = restaurantDocument.aggregatescore;
+    // for (const restaurant of restaurantsJSON) {
+    //   // If restaurant in database with a Foursquare ID:
+    //   Restaurant.findOne({ id: restaurant.id })
+    //     .then(restaurantDocument => {
+    //       // Add an aggregate score property + value to Foursquare obj:
+    //       restaurant.aggregatescore = restaurantDocument.aggregatescore;
 
-          // Set quality levels:
-          // if (restaurant.aggregatescore > 8) {
-          //   restaurant.level = "high";
-          // } else if (restaurant.aggregatescore > 5) {
-          //   restaurant.level = "medium";
-          // } else {
-          //   restaurant.level = "low";
-          // }
-          // return restaurant;
-        })
+    //       // console.log(restaurant);
+    //       // Set quality levels:
+    //       // if (restaurant.aggregatescore > 8) {
+    //       //   restaurant.level = "high";
+    //       // } else if (restaurant.aggregatescore > 5) {
+    //       //   restaurant.level = "medium";
+    //       // } else {
+    //       //   restaurant.level = "low";
+    //       // }
+    //       // return restaurant;
+    //     })
 
-        // If restaurant doesn't exist in database with Foursquare ID:
-        .catch(() => {});
-    }
+    //     // If restaurant doesn't exist in database with Foursquare ID:
+    //     .catch(() => {});
+    // }
+
+    //calling of function in line 53. Because its async, returns a promise, so we need a .then. We're now sending the data to handlebars
+    updateArray(restaurantsJSON).then(restaurantsList => {
+      console.log(restaurantsList[1]);
+      res.render("restaurants", { restaurantsList });
+    });
+
+    console.log("hallo?");
     // Render the restaurants page with the updated restaurantsJSON:
-    res.render("restaurants", { restaurantsList: restaurantsJSON });
+    // res.render("restaurants", { restaurantsList: restaurantsJSON });
   });
 });
+
+//arr here is restaurants.json
+async function updateArray(arr) {
+  const arrayOfPromises = arr.map(el => getRestaurant(el));
+  // array of promises is an array filled with the returns from getRestaurant (all of them are promises)
+  const resolvedArrayOfPromises = await Promise.all(arrayOfPromises);
+  // since ALL async functions return a promise. Promise.all will wait for all promises to resolve.
+  // console.log(test);
+
+  //returning all of the resolved promises
+  return resolvedArrayOfPromises;
+}
+
+// gets called for each individual restaurant in restaurants.json
+async function getRestaurant(element) {
+  // each individual restaurant is being searched through our db
+  const restaurantObj = await Restaurant.findOne({ id: element.id }).populate(
+    "scores"
+  );
+  // console.log(restaurantObj);
+
+  // most of times, might be null, so if NOT NULL, update the response from the foursquareapi, and return it to line 56 (each individual element of array)
+  if (restaurantObj) element.aggregatescore = restaurantObj.aggregatescore;
+  return element;
+}
 
 // FUNCTIONS
 function getRestaurantList() {
@@ -90,7 +124,8 @@ router.get("/:restaurantId/edit", (req, res, next) => {
     userID: req.user._id,
     restaurantID: req.params.restaurantId
   }).then(scoreDocument => {
-    res.render("editform", { userScore: scoreDocument });
+    // res.render("editform", { userScore: scoreDocument });
+    res.render("editform", { restaurantId: req.params.restaurantId });
   });
 });
 
@@ -107,7 +142,6 @@ router.post("/:restaurantId/edit", (req, res, next) => {
 
 router.post("/:restaurantId/score", (req, res, next) => {
   // console.log(req.body);
-  console.log("Does that make me crazy? Probably... ", req.body);
   let restaurantId = req.params.restaurantId; // current restaurant
   const userID = req.user._id; // current user
 
