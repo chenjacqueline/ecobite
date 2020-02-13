@@ -143,7 +143,7 @@ app.use("/", restaurantRoutes);
 const authRoutes = require("./routes/auth");
 app.use("/", authRoutes);
 
-// const scoreRoutes = require("./routes/score");
-// app.use("/", scoreRoutes);
+const scoreRoutes = require("./routes/score");
+app.use("/", scoreRoutes);
 
 module.exports = app;
