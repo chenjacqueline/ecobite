@@ -66,8 +66,16 @@ router.get("/restaurantData", (req, res, next) => {
     });
 });
 
+const loginCheck = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect("/restaurants");
+  }
+};
+
 // LINK FROM THE RESTAURANT PARTIAL
-router.get("/:restaurantId/score", (req, res, next) => {
+router.get("/:restaurantId/score", loginCheck, (req, res, next) => {
   console.log(req.user);
   User.findById(req.user._id).then(foundUser => {
     const check = foundUser.ratedRestaurants.includes(req.params.restaurantId);
@@ -79,7 +87,7 @@ router.get("/:restaurantId/score", (req, res, next) => {
   });
 });
 
-router.get("/:restaurantId/edit", (req, res, next) => {
+router.get("/:restaurantId/edit", loginCheck, (req, res, next) => {
   Score.findOne({
     userID: req.user._id,
     restaurantID: req.params.restaurantId
