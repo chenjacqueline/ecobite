@@ -89,7 +89,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "https://ecobite.herokuapp.com/auth/facebook/callback/"
+      callbackURL: `${process.env.BASE_URL}/auth/facebook/callback/`
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ facebookId: profile.id })
@@ -112,7 +112,7 @@ passport.use(
 // GOOGLE OAUTH
 router.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google callback route
@@ -129,9 +129,11 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://ecobite.herokuapp.com/auth/google/callback"
+      callbackURL: `${process.env.BASE_URL}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+
       User.findOne({ googleId: profile.id })
         .then(found => {
           if (found) {
