@@ -35,7 +35,9 @@ axios.get(`/restaurantData`).then(response => {
       .setLngLat([restaurant.location.lng, restaurant.location.lat])
       .setPopup(
         new mapboxgl.Popup({ offset: 25 }) // add popups
-          .setHTML(`<h3>${restName}</h3><p>${address}</p><p>${category}</p>`)
+          .setHTML(
+            `<h3><a href="/restaurants#${restName}">${restName}</a></h3><p>${address}</p><p class="caption">${category}</p>`
+          )
       )
       .addTo(map);
   });
