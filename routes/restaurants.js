@@ -33,9 +33,7 @@ router.get("/restaurants", (req, res, next) => {
         })
 
         // If restaurant doesn't exist in database with Foursquare ID:
-        .catch(() => {
-          console.log("No existing aggregate score yet.");
-        });
+        .catch(() => {});
     }
     // Render the restaurants page with the updated restaurantsJSON:
     res.render("restaurants", { restaurantsList: restaurantsJSON });
@@ -66,9 +64,17 @@ router.get("/restaurantData", (req, res, next) => {
     });
 });
 
+// const loginCheck = (req, res, next) => {
+//   if (req.user) {
+//     next();
+//   } else {
+//     res.redirect("/restaurants");
+//   }
+// };
+
 // LINK FROM THE RESTAURANT PARTIAL
 router.get("/:restaurantId/score", (req, res, next) => {
-  console.log(req.user);
+  // console.log(req.user);
   User.findById(req.user._id).then(foundUser => {
     const check = foundUser.ratedRestaurants.includes(req.params.restaurantId);
     if (check) {
@@ -132,7 +138,7 @@ router.post("/:restaurantId/score", (req, res, next) => {
         { new: true }
       )
         .then(updatedUserDocument => {
-          console.log(updatedUserDocument);
+          // console.log(updatedUserDocument);
           Restaurant.findOne({ id: restaurantId })
             .populate("scores")
             .then(restaurantFromDB => {
@@ -140,9 +146,9 @@ router.post("/:restaurantId/score", (req, res, next) => {
               if (!restaurantFromDB) {
                 let scoreArray = [scores];
                 let aggregateScore = calculateScore(scoreArray);
-                console.log(scores);
-                console.log(scoreArray);
-                console.log(aggregateScore);
+                // console.log(scores);
+                // console.log(scoreArray);
+                // console.log(aggregateScore);
                 Restaurant.create({
                   id: restaurantId,
                   scores: [createdScore._id],
@@ -155,7 +161,7 @@ router.post("/:restaurantId/score", (req, res, next) => {
                 let scoreArray = [...restaurantFromDB.scores, scores];
                 // Calculate aggregate score with the test array (existing scores + new scores)
                 let aggregateScore = calculateScore(scoreArray);
-                console.log(aggregateScore);
+                // console.log(aggregateScore);
                 Restaurant.findByIdAndUpdate(restaurantFromDB._id, {
                   $push: { scores: createdScore._id },
                   aggregatescore: aggregateScore

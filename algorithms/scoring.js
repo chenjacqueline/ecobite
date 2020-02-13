@@ -75,9 +75,7 @@ function calculateScore(arr) {
   if (dairyCount != 0) {
     dairy = dairy / dairyCount;
   }
-  // console.log(eatIn, takeAway, reusableCup, veg, dairy);
-
-  console.log(givenScores);
+  
 
   score = (eatIn + takeAway + reusableCup + veg + dairy) / givenScores.length;
 

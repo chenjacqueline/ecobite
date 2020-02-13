@@ -134,6 +134,12 @@ hbs.registerHelper("ifEquals", function(arg1, arg2, options) {
 // default value for title local
 app.locals.title = "ecobite";
 
+// middlewear to check for logged in user
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 const index = require("./routes/index");
 app.use("/", index);
 

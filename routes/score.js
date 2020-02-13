@@ -28,8 +28,8 @@ router.post("/:restaurantId/score", (req, res, next) => {
     scores
   })
     .then(() => {
-      console.log(req.user._id);
-      console.log(typeof restaurantId);
+      // console.log(req.user._id);
+      // console.log(typeof restaurantId);
       // User.findOne({ _id: req.user._id }).then(data => {
       //   console.log("found", data);
       // });
@@ -43,13 +43,13 @@ router.post("/:restaurantId/score", (req, res, next) => {
       ).then();
     })
     .then(data => {
-      console.log(data);
+      // console.log(data);
       Restaurant.findOne({ id: restaurantId }).then(response => {
         // If restaurant doesn't exist
         if (!response) {
           let scoreArray = [scores];
           let aggregateScore = calculateScore(scoreArray);
-          console.log(scoreArray);
+          // console.log(scoreArray);
 
           Restaurant.create({
             id: restaurantId,
@@ -63,7 +63,7 @@ router.post("/:restaurantId/score", (req, res, next) => {
           let scoreArray = [...response.scores, scores];
           // Calculate aggregate score with the test array (existing scores + new scores)
           let aggregateScore = calculateScore(scoreArray);
-          console.log(aggregateScore);
+          // console.log(aggregateScore);
 
           Restaurant.findByIdAndUpdate(response._id, {
             // Pushing scores into the scores (array of objects)

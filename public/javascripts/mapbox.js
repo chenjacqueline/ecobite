@@ -10,7 +10,7 @@ var map = new mapboxgl.Map({
 
 axios.get(`/restaurantData`).then(response => {
   let restaurantList = response.data;
-  console.log("test", restaurantList);
+  //console.log("test", restaurantList);
 
   restaurantList.forEach(restaurant => {
     let coordinates = restaurant.location.lng + " " + restaurant.location.lat;

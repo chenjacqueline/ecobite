@@ -3,7 +3,8 @@
   <div>
     <div id="restaurants-list">
       {{#each restaurantsList}}
-      {{> restaurantCard this}}
+      {{!-- Access two variables within the partial with the syntax below, this is from restaurant list --}}
+      {{> restaurantCard restaurant=this user=../user}}
       {{/each}}
     </div>
 

@@ -6,7 +6,12 @@
     <p class="title">{{this.name}}</p>
     <p>{{this.location.address}}</p>
     <p class="caption">{{this.categories.0.shortName}}</p>
-    <a href="/{{this.id}}/score">Rate restaurant</a>
+
+    {{#if user}}
+    <a href="/{{restaurant.id}}/score">Give this restaurant a score</a>
+    {{else}}
+    <p class="caption">Please sign up or log in to score a restaurant</p>
+    {{/if}}
   </div>
 
   {{#if this.aggregatescore}}
