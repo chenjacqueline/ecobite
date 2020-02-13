@@ -92,9 +92,9 @@ passport.use(
       callbackURL: `${process.env.BASE_URL}/auth/facebook/callback/`
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
       User.findOne({ facebookId: profile.id })
         .then(userDocument => {
-          console.log(userDocument);
           if (userDocument) {
             done(null, userDocument);
           } else {
