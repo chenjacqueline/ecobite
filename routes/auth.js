@@ -94,6 +94,7 @@ passport.use(
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ facebookId: profile.id })
         .then(userDocument => {
+          console.log(userDocument);
           if (userDocument) {
             done(null, userDocument);
           } else {
@@ -150,11 +151,12 @@ passport.use(
       User.findOne({ googleId: profile.id })
         .then(found => {
           if (found) {
+            console.log(found);
             done(null, found); // Found is referring to the user
           } else {
             User.create({
-              googleId: profile.id,
-              displayName: profile.displayName
+              email: profile.email,
+              googleId: profile.id
             }).then(createdUser => {
               done(null, createdUser);
             });
