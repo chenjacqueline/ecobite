@@ -94,6 +94,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       console.log(profile);
+      console.log(profile.emails[0].value);
       console.log(Object.keys(profile));
       User.findOne({ facebookId: profile.id })
         .then(userDocument => {
@@ -102,7 +103,7 @@ passport.use(
           } else {
             return User.create({
               facebookId: profile.id,
-              email: profile.email
+              email: profile.emails[0].value
             }).then(createdUser => {
               done(null, createdUser);
             });
@@ -152,7 +153,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       console.log("this the profile", profile);
-      console.log("this is supposed to be the email", profile.emails.value);
+      console.log("this is supposed to be the email", profile.emails[0].value);
       console.log("this is supposed to be the id", profile.id);
       console.log(Object.keys(profile));
 
@@ -163,7 +164,7 @@ passport.use(
             done(null, found); // Found is referring to the user
           } else {
             User.create({
-              email: profile.emails.value,
+              email: profile.emails[0].value,
               googleId: profile.id
             }).then(createdUser => {
               done(null, createdUser);
