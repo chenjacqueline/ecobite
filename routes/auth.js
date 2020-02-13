@@ -67,7 +67,7 @@ router.get("/login", (req, res) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/restaurants",
     failureRedirect: "/login",
     failureFlash: true
   })
@@ -80,7 +80,7 @@ router.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", {
     failureRedirect: "/login",
-    successRedirect: "/"
+    successRedirect: "/restaurants"
   })
 );
 
@@ -127,7 +127,7 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/login",
-    successRedirect: "/"
+    successRedirect: "/restaurants"
   })
 );
 

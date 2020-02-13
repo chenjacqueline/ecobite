@@ -1,13 +1,16 @@
-<form action="/login" method="POST">
-  <label for="email">Email address:</label><br />
-  <input type="text" name="email" id="email-field"><br />
+<div class="login-wrapper">
+  <form class="login-form-container" action="/login" method="POST">
+    <h1>Welcome back!</h1>
+    <label for="email">Email address:</label><br />
+    <input type="text" name="email" id="email-field"><br />
 
-  <label for="password">Password:</label><br />
-  <input type="password" name="password" id="password-field"><br />
+    <label for="password">Password:</label><br />
+    <input type="password" name="password" id="password-field"><br />
 
-  <button>Log in</button>
-</form>
+    <button class="solid">Log in</button>
+  </form>
 
-{{#if errorMessage}}
-<caption>{{errorMessage}}</caption>
-{{/if}}
+  {{#if errorMessage}}
+  <caption>{{errorMessage}}</caption>
+  {{/if}}
+</div>
