@@ -78,7 +78,11 @@ function calculateScore(arr) {
 
   score = (eatIn + takeAway + reusableCup + veg + dairy) / givenScores.length;
 
-  return Math.round(score * 10) / 10;
+  // if (score % 1 == 0) {
+  //   return 1.0 * score;
+  // } else {
+  return parseFloat(score.toFixed(2));
+  // }
 }
 
 module.exports = calculateScore;
