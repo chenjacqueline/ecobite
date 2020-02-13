@@ -132,27 +132,40 @@ passport.use(
       callbackURL: `${process.env.BASE_URL}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-
-      User.findOne({ googleId: profile.id })
-        .then(found => {
-          if (found) {
-            done(null, found); // Found is referring to the user
-          } else {
-            User.create({
-              googleId: profile.id,
-              displayName: profile.displayName
-            }).then(createdUser => {
-              done(null, createdUser);
-            });
-          }
-        })
-        .catch(err => {
-          done(err);
-        });
+      // 
     }
   )
 );
+
+// passport.use(
+//   new GoogleStrategy(
+//     {
+//       clientID: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//       callbackURL: `${process.env.BASE_URL}/auth/google/callback`
+//     },
+//     (accessToken, refreshToken, profile, done) => {
+//       console.log(profile);
+
+//       User.findOne({ googleId: profile.id })
+//         .then(found => {
+//           if (found) {
+//             done(null, found); // Found is referring to the user
+//           } else {
+//             User.create({
+//               googleId: profile.id,
+//               displayName: profile.displayName
+//             }).then(createdUser => {
+//               done(null, createdUser);
+//             });
+//           }
+//         })
+//         .catch(err => {
+//           done(err);
+//         });
+//     }
+//   )
+// );
 
 // LOG OUT
 router.get("/logout", (req, res, next) => {
