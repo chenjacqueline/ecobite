@@ -147,7 +147,10 @@ passport.use(
       callbackURL: `${process.env.BASE_URL}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
+      console.log("this the profile", profile);
+      console.log("this is supposed to be the email", profile.email);
+      console.log("this is supposed to be the id", profile.id);
+      console.log(Object.keys(profile));
 
       User.findOne({ googleId: profile.id })
         .then(found => {
