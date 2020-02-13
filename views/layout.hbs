@@ -33,12 +33,12 @@
       <p><a href="/">ecobite</a></p>
     </div>
     <div class="nav-links">
-      {{#unless req.user}}
+      {{#unless user}}
       <a href="/login">Log in</a>
       <a href="#" class="trigger">Sign up</a>
       {{/unless}}
 
-      {{#if req.user}}
+      {{#if user}}
       <a href="/logout">Log out</a>
       {{/if}}
     </div>

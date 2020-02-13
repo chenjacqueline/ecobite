@@ -101,6 +101,7 @@ router.post("/:restaurantId/edit", (req, res, next) => {
 
 router.post("/:restaurantId/score", (req, res, next) => {
   // console.log(req.body);
+  console.log("Does that make me crazy? Probably... ", req.body);
   let restaurantId = req.params.restaurantId; // current restaurant
   const userID = req.user._id; // current user
 

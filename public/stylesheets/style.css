@@ -26,6 +26,24 @@ h1 {
   color: var(--dark-green);
   margin-bottom: 32px; }
 
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  color: var(--dark-green);
+  margin-bottom: 24px; }
+
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--dark-green);
+  margin-bottom: 16px; }
+  h3 span {
+    font-size: 16px;
+    color: var(--medium-gray); }
+
 nav {
   height: 80px;
   padding: 0px 32px;
@@ -47,9 +65,10 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   position: fixed; }
   #home-background div {
-    margin-top: 150px;
+    margin-top: -70px;
     width: 50%;
     text-align: center; }
 
@@ -108,10 +127,6 @@ button {
   .modal-wrapper .modal-new-user {
     margin: 32px;
     border-bottom: 1px solid var(--light-gray); }
-  .modal-wrapper .intro-text {
-    font-family: "Muli";
-    font-weight: 700;
-    font-size: 28px; }
   .modal-wrapper .caption {
     font-size: 14px; }
 
@@ -226,5 +241,66 @@ button {
 
 .tooltip:hover .tooltiptext {
   visibility: visible; }
+
+/* FORM */
+.form-wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 32px; }
+  .form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    width: 50%; }
+    .form-wrapper form button {
+      margin: 16px auto; }
+    .form-wrapper form .question {
+      text-align: center; }
+  .form-wrapper input {
+    display: block; }
+  .form-wrapper .answers-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; }
+  .form-wrapper .input-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .form-wrapper .input-container label {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center; }
+
+input[type="radio"] {
+  opacity: 0; }
+
+.input-container label {
+  display: inline-block;
+  height: 36px !important;
+  border-radius: 22px;
+  border: 2px solid var(--light-gray);
+  min-width: 100px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 4px;
+  margin: 8px; }
+
+.input-container input[type="radio"]:checked + label {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: #fff; }
+
+.input-container input[type="radio"]:focus + label {
+  border: 2px solid var(--dark-green); }
 
 /*# sourceMappingURL=style.css.map */
