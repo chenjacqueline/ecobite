@@ -89,15 +89,22 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "https://ecobite.herokuapp.com/auth/facebook/callback/"
+      callbackURL: `${process.env.BASE_URL}/auth/facebook/callback/`,
+      profileFields: ["id", "emails", "name"]
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      console.log(profile.emails[0].value);
+      console.log(Object.keys(profile));
       User.findOne({ facebookId: profile.id })
         .then(userDocument => {
           if (userDocument) {
             done(null, userDocument);
           } else {
-            return User.create({ facebookId: profile.id }).then(createdUser => {
+            return User.create({
+              facebookId: profile.id,
+              email: profile.emails[0].value
+            }).then(createdUser => {
               done(null, createdUser);
             });
           }
@@ -112,7 +119,7 @@ passport.use(
 // GOOGLE OAUTH
 router.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google callback route
@@ -129,28 +136,89 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://ecobite.herokuapp.com/auth/google/callback"
+      callbackURL: `${process.env.BASE_URL}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
+      //
+    }
+  )
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: `${process.env.BASE_URL}/auth/google/callback`
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log("this the profile", profile);
+      console.log("this is supposed to be the email", profile.emails[0].value);
+      console.log("this is supposed to be the id", profile.id);
+      console.log(Object.keys(profile));
+
       User.findOne({ googleId: profile.id })
         .then(found => {
           if (found) {
+            console.log(found);
             done(null, found); // Found is referring to the user
           } else {
             User.create({
-              googleId: profile.id,
-              displayName: profile.displayName
+              email: profile.emails[0].value,
+              googleId: profile.id
             }).then(createdUser => {
               done(null, createdUser);
             });
           }
         })
         .catch(err => {
+          console.log(err);
           done(err);
         });
     }
   )
 );
+
+// passport.use(
+//   new GoogleStrategy(
+//     {
+//       clientID: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//       callbackURL: `${process.env.BASE_URL}/auth/google/callback`
+//     },
+//     (accessToken, refreshToken, profile, done) => {
+//       console.log(profile);
+//       // If user found with googleId, then log in:
+//       User.findOne({ googleId: profile.id })
+//         .then(found => {
+//           if (found) {
+//             done(null, found); // Found is referring to the user
+//             // If googleId isn't found, create a new user:
+//             // Catch: only if email isn't found either
+//             // If email is found (user signed up with only email previously), then just add Google id to User document:
+//           } else {
+//             // If a User already has the @gmail account used,
+//             User.findOne({email: profile.email})
+//             .then(found => {
+//               // Then update that User document with the Google ID:
+//               User.updateOne({ googleId: profile.id });
+//               done(null, found);
+//             })
+
+//             User.create({
+//               googleId: profile.id,
+//               displayName: profile.displayName
+//             }).then(createdUser => {
+//               done(null, createdUser);
+//             });
+//           }
+//         })
+//         .catch(err => {
+//           done(err);
+//         });
+//     }
+//   )
+// );
 
 // LOG OUT
 router.get("/logout", (req, res, next) => {

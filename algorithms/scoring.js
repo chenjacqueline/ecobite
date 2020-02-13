@@ -23,35 +23,35 @@ function calculateScore(arr) {
       eatIn += el.eatIn;
       eatInCount++;
       if (givenScores.indexOf(eatIn) == -1) {
-        givenScores.push(eatIn);
+        givenScores.push("eatIn");
       }
     }
     if (el.takeAway >= 0) {
       takeAway += el.takeAway;
       takeAwayCount++;
       if (givenScores.indexOf(takeAway) == -1) {
-        givenScores.push(takeAway);
+        givenScores.push("takeAway");
       }
     }
     if (el.reusableCup >= 0) {
       reusableCup += el.reusableCup;
       reusableCupCount++;
       if (givenScores.indexOf(reusableCup) == -1) {
-        givenScores.push(reusableCup);
+        givenScores.push("reusableCup");
       }
     }
     if (el.veg >= 0) {
       veg += el.veg;
       vegCount++;
       if (givenScores.indexOf(veg) == -1) {
-        givenScores.push(veg);
+        givenScores.push("veg");
       }
     }
     if (el.dairy >= 0) {
       dairy += el.dairy;
       dairyCount++;
       if (givenScores.indexOf(dairy) == -1) {
-        givenScores.push(dairy);
+        givenScores.push("dairy");
       }
     }
   }
@@ -75,6 +75,9 @@ function calculateScore(arr) {
   if (dairyCount != 0) {
     dairy = dairy / dairyCount;
   }
+  // console.log(eatIn, takeAway, reusableCup, veg, dairy);
+
+  console.log(givenScores);
 
   score = (eatIn + takeAway + reusableCup + veg + dairy) / givenScores.length;
 
