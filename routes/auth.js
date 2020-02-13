@@ -132,7 +132,38 @@ passport.use(
       callbackURL: `${process.env.BASE_URL}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
-      // 
+      //
+    }
+  )
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: `${process.env.BASE_URL}/auth/google/callback`
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+
+      User.findOne({ googleId: profile.id })
+        .then(found => {
+          if (found) {
+            done(null, found); // Found is referring to the user
+          } else {
+            User.create({
+              googleId: profile.id,
+              displayName: profile.displayName
+            }).then(createdUser => {
+              done(null, createdUser);
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          done(err);
+        });
     }
   )
 );
@@ -146,12 +177,23 @@ passport.use(
 //     },
 //     (accessToken, refreshToken, profile, done) => {
 //       console.log(profile);
-
+//       // If user found with googleId, then log in:
 //       User.findOne({ googleId: profile.id })
 //         .then(found => {
 //           if (found) {
 //             done(null, found); // Found is referring to the user
+//             // If googleId isn't found, create a new user:
+//             // Catch: only if email isn't found either
+//             // If email is found (user signed up with only email previously), then just add Google id to User document:
 //           } else {
+//             // If a User already has the @gmail account used,
+//             User.findOne({email: profile.email})
+//             .then(found => {
+//               // Then update that User document with the Google ID:
+//               User.updateOne({ googleId: profile.id });
+//               done(null, found);
+//             })
+
 //             User.create({
 //               googleId: profile.id,
 //               displayName: profile.displayName
