@@ -37,7 +37,7 @@
       <a href="/logout">Log out</a>
       {{else}}
       <a href="/login">Log in</a>
-      <a href="#" class="trigger">Sign up</a>
+      <a href="#" class="trigger"><button class="short">Sign up</button></a>
       {{/if}}
     </div>
   </nav>
@@ -46,6 +46,7 @@
   <div class="modal">
     <div class="modal-wrapper">
       <div class="close-button">&times;</div>
+
       <div class="modal-new-user">
         <h2>Discover environmentally-friendly places to eat and drink near you.</h2>
         <br />
@@ -56,9 +57,10 @@
         </a><br />
         <br />
       </div>
+
       <div class="modal-returning-user">
-        <p class="caption">Already have an account?
-          <br /><a href="/login">Log in with your email address</a></p>
+        <p class="caption">Already have an account?</p>
+        <a href="/login">Log in with your email address</a>
       </div>
     </div>
   </div>

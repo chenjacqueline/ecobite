@@ -31,7 +31,7 @@ axios.get(`/restaurantData`).then(response => {
     }
 
     // add marker to map
-    var marker = new mapboxgl.Marker()
+    var marker = new mapboxgl.Marker({ color: "#064539" })
       .setLngLat([restaurant.location.lng, restaurant.location.lat])
       .setPopup(
         new mapboxgl.Popup({ offset: 25 }) // add popups
