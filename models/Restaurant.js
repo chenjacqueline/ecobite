@@ -8,11 +8,8 @@ const restaurantSchema = new Schema({
   },
   scores: [
     {
-      eatIn: Number,
-      takeAway: Number,
-      reusableCup: Number,
-      veg: Number,
-      dairy: Number
+      type: mongoose.Schema.Types.ObjectId, // We will have an array of Object IDs
+      ref: "Score"
     }
   ],
   aggregatescore: Number
