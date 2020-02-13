@@ -13,10 +13,8 @@ var map = new mapboxgl.Map({
 // http://localhost:3000/restaurantData || https://ecobite.herokuapp.com/restaurantData
 
 axios
-  .get(
-    `https://ecobite.herokuapp.com/restaurantData` ||
-      `http://localhost:3000/restaurantData`
-  )
+  .get(`/restaurantData`)
+
   .then(response => {
     let restaurantList = response.data;
     console.log("test", restaurantList);
