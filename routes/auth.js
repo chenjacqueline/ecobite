@@ -93,9 +93,9 @@ passport.use(
       profileFields: ["id", "emails", "name"]
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      console.log(profile.emails[0].value);
-      console.log(Object.keys(profile));
+      // console.log(profile);
+      // console.log(profile.emails[0].value);
+      // console.log(Object.keys(profile));
       User.findOne({ facebookId: profile.id })
         .then(userDocument => {
           if (userDocument) {
@@ -152,15 +152,15 @@ passport.use(
       callbackURL: `${process.env.BASE_URL}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log("this the profile", profile);
-      console.log("this is supposed to be the email", profile.emails[0].value);
-      console.log("this is supposed to be the id", profile.id);
-      console.log(Object.keys(profile));
+      // console.log("this the profile", profile);
+      // console.log("this is supposed to be the email", profile.emails[0].value);
+      // console.log("this is supposed to be the id", profile.id);
+      // console.log(Object.keys(profile));
 
       User.findOne({ googleId: profile.id })
         .then(found => {
           if (found) {
-            console.log(found);
+            // console.log(found);
             done(null, found); // Found is referring to the user
           } else {
             User.create({
