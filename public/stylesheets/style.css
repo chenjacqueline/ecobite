@@ -10,17 +10,19 @@
   padding: 0; }
 
 body {
-  font-family: "Muli", "Open Sans", sans-serif;
-  font-weight: 300; }
+  font-family: "Didact Gothic", sans-serif;
+  letter-spacing: 1px; }
 
 a {
   color: var(--dark-green);
   text-decoration: none;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Didact Gothic", sans-serif;
   font-size: 14px;
-  font-weight: 700; }
+  letter-spacing: 1px;
+  font-weight: bold; }
 
 h1 {
+  font-family: "Red Hat Text", sans-serif;
   font-size: 44px;
   font-weight: 700;
   line-height: 1.3;
@@ -29,6 +31,7 @@ h1 {
   margin-bottom: 32px; }
 
 h2 {
+  font-family: "Red Hat Text", sans-serif;
   font-size: 28px;
   font-weight: 700;
   line-height: 1.4;
@@ -38,7 +41,7 @@ h2 {
 
 h3 {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 1.4;
   color: var(--dark-green); }
   h3 span {
@@ -58,8 +61,8 @@ nav {
     color: var(--green); }
 
 .logo-div a {
-  font-family: "Muli", sans-serif;
-  font-weight: 900;
+  font-family: "Red Hat Text", sans-serif;
+  font-weight: 700;
   font-size: 32px;
   color: var(--green); }
 
@@ -90,8 +93,8 @@ button {
   border: 2px solid var(--green);
   border-radius: 24px;
   width: 220px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 13px;
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 14px;
   letter-spacing: 1px;
   font-weight: 700;
   padding: 4px;
@@ -111,7 +114,6 @@ button {
   border: 2px solid var(--dark-green); }
 
 .short {
-  font-size: 14px;
   color: var(--green);
   width: 90px;
   height: 40px;
@@ -147,7 +149,7 @@ button {
   .modal-wrapper .caption {
     font-size: 14px; }
 
-.close-button {
+.modal-close-btn {
   float: right;
   font-size: 48px;
   color: var(--medium-gray);
@@ -160,7 +162,7 @@ button {
   border-radius: 0;
   background-color: lightgray; }
 
-.close-button {
+.modal-close-btn {
   background-color: #fff; }
 
 .show-modal {
@@ -191,7 +193,7 @@ button {
       width: 100%;
       height: 48px;
       border: 2px solid var(--medium-gray);
-      font-family: "Open Sans", sans-serif;
+      font-family: "Didact Gothic", sans-serif;
       color: var(--dark-green);
       font-size: 18px;
       padding-left: 12px;
@@ -232,20 +234,20 @@ button {
   background-color: var(--sand);
   padding: 32px;
   border-bottom: 1px solid var(--light-gray); }
-  .restaurant-card p {
-    padding-bottom: 12px; }
   .restaurant-card .title {
-    font-family: "Muli";
+    font-family: "Red Hat Text", sans-serif;
     color: var(--dark-green);
-    font-weight: 700;
-    font-size: 20px; }
+    font-weight: 500;
+    font-size: 20px;
+    padding-bottom: 12px; }
   .restaurant-card .caption {
+    padding-bottom: 12px;
     font-size: 14px;
     color: var(--medium-gray); }
   .restaurant-card .score {
-    font-family: "Muli";
+    font-family: "Red Hat Text", sans-serif;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     padding: 8px;
     margin-bottom: 16px;
     width: 24px;
@@ -270,9 +272,8 @@ button {
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-  font-family: "Open sans", sans-serif;
-  font-weight: 100;
-  font-size: 10px;
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 12px;
   letter-spacing: 1px;
   text-align: center;
   visibility: hidden;
@@ -336,7 +337,7 @@ input[type="radio"] {
   border-radius: 22px;
   border: 2px solid var(--light-gray);
   min-width: 100px;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Didact Gothic", sans-serif;
   font-size: 14px;
   letter-spacing: 1px;
   padding: 4px;
@@ -349,5 +350,9 @@ input[type="radio"] {
 
 .input-container input[type="radio"]:focus + label {
   border: 2px solid var(--dark-green); }
+
+/* MAPBOX MARKER POPUP */
+.mapboxgl-popup-close-button {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */
