@@ -33,13 +33,11 @@
       <p><a href="/">ecobite</a></p>
     </div>
     <div class="nav-links">
-      {{#unless req.user}}
-      <a href="/login">Log in</a>
-      <a href="#" class="trigger">Sign up</a>
-      {{/unless}}
-
-      {{#if req.user}}
-      <a href="/logout">Log out</a>
+      {{#if user}}
+        <a href="/logout">Log out</a>
+      {{else}}
+        <a href="/login">Log in</a>
+        <a href="/signup">Sign up</a>
       {{/if}}
     </div>
   </nav>
@@ -49,7 +47,7 @@
     <div class="modal-wrapper">
       <div class="close-button">&times;</div>
       <div class="modal-new-user">
-        <p class="intro-text">Discover environmentally-friendly places to eat and drink near you.</p>
+        <h2>Discover environmentally-friendly places to eat and drink near you.</h2>
         <br />
         <a href="/auth/facebook"><button class="facebook">Continue with Facebook</button></a><br />
         <a href="/auth/google"><button class="google">Continue with Google</button></a><br /><br />

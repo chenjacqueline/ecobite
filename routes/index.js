@@ -3,8 +3,7 @@ const router = express.Router();
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.render("index");
-  console.log(req.user);
+  res.render("index", { user: req.user });
 });
 
 router.get("/restaurantcard", (req, res, next) => {
