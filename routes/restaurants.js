@@ -39,11 +39,10 @@ router.get("/restaurants", (req, res, next) => {
 
     //calling of function in line 53. Because its async, returns a promise, so we need a .then. We're now sending the data to handlebars
     updateArray(restaurantsJSON).then(restaurantsList => {
-      console.log(restaurantsList[1]);
       res.render("restaurants", { restaurantsList });
     });
 
-    console.log("hallo?");
+    // console.log("hallo?");
     // Render the restaurants page with the updated restaurantsJSON:
     // res.render("restaurants", { restaurantsList: restaurantsJSON });
   });
@@ -71,6 +70,7 @@ async function getRestaurant(element) {
 
   // most of times, might be null, so if NOT NULL, update the response from the foursquareapi, and return it to line 56 (each individual element of array)
   if (restaurantObj) element.aggregatescore = restaurantObj.aggregatescore;
+
   return element;
 }
 
@@ -108,7 +108,6 @@ router.get("/restaurantData", (req, res, next) => {
 
 // LINK FROM THE RESTAURANT PARTIAL
 router.get("/:restaurantId/score", (req, res, next) => {
-  // console.log(req.user);
   User.findById(req.user._id).then(foundUser => {
     const check = foundUser.ratedRestaurants.includes(req.params.restaurantId);
     if (check) {
@@ -130,13 +129,30 @@ router.get("/:restaurantId/edit", (req, res, next) => {
 });
 
 router.post("/:restaurantId/edit", (req, res, next) => {
+  const { restaurantId } = req.params;
+  const scores = { ...req.body };
+  // console.log("Updated");
   Score.findOne({
     userID: req.user._id,
-    restaurantID: req.params.restaurantId
+    restaurantID: restaurantId
   }).then(scoreDocument => {
-    Score.findByIdAndUpdate(scoreDocument._id, { ...req.body }).then(() => {
-      res.redirect("/restaurants");
-    });
+    Score.findByIdAndUpdate(scoreDocument._id, { scores }, { new: true }).then(
+      updatedScore => {
+        Restaurant.findOne({ id: restaurantId })
+          .populate("scores")
+          .then(restaurantFromDB => {
+            let scoreArray = [...restaurantFromDB.scores, scores];
+            // Calculate aggregate score with the test array (existing scores + new scores)
+            let aggregateScore = calculateScore(scoreArray);
+            Restaurant.findByIdAndUpdate(restaurantFromDB._id, {
+              aggregatescore: aggregateScore
+            }).then(() => {
+              res.redirect("/restaurants");
+            });
+          });
+        // res.redirect("/restaurants");
+      }
+    );
   });
 });
 
@@ -171,8 +187,7 @@ router.post("/:restaurantId/score", (req, res, next) => {
         },
         { new: true }
       )
-        .then(updatedUserDocument => {
-          // console.log(updatedUserDocument);
+        .then(() => {
           Restaurant.findOne({ id: restaurantId })
             .populate("scores")
             .then(restaurantFromDB => {
@@ -180,9 +195,7 @@ router.post("/:restaurantId/score", (req, res, next) => {
               if (!restaurantFromDB) {
                 let scoreArray = [scores];
                 let aggregateScore = calculateScore(scoreArray);
-                // console.log(scores);
-                // console.log(scoreArray);
-                // console.log(aggregateScore);
+
                 Restaurant.create({
                   id: restaurantId,
                   scores: [createdScore._id],
@@ -195,7 +208,6 @@ router.post("/:restaurantId/score", (req, res, next) => {
                 let scoreArray = [...restaurantFromDB.scores, scores];
                 // Calculate aggregate score with the test array (existing scores + new scores)
                 let aggregateScore = calculateScore(scoreArray);
-                // console.log(aggregateScore);
                 Restaurant.findByIdAndUpdate(restaurantFromDB._id, {
                   $push: { scores: createdScore._id },
                   aggregatescore: aggregateScore
